@@ -20,14 +20,16 @@ plugin simpleMeshMod CatchMaterialIDNearest
 
 	-- value wrapper local and function wrapper declarations
 	local meshWrapper, meshWrapper_SetValue
-	local hitMeshWrapper, hitMeshWrapper_SetValue
+	local Hit_MeshWrapper, Hit_MeshWrapper_SetValue
 	local modifierTransformWrapper, modifierTransformWrapper_SetValue
 
 
 	parameters main rollout:params
 	(
-		hitMesh ui:hitMesh type:#node useNodeOsValidity:true useNodeTmValidity:true
-		RayLength ui:RayLength default:1 type:#float animatable:true
+		Static_Or_Dynamic ui:Static_Or_Dynamic default:False type:#boolean animatable:true
+		Hit_Mesh ui:Hit_Mesh type:#node useNodeOsValidity:true useNodeTmValidity:true
+		ReverseRay ui:ReverseRay default:False type:#boolean animatable:true
+		Ray_Length ui:Ray_Length default:1 type:#float animatable:true
 		_dummy type:#boolean invisibleInTV:true -- this exists to enable easy invalidation of the object
 		pluginGraph type:#filename assettype:#MaxCreationGraph readOnly:true enumAsAsset:true 
 		pluginGraphDependencies type:#filenametab assettype:#MaxCreationGraph readOnly:true enumAsAsset:true tabSize:0 tabSizeVariable:true
@@ -57,15 +59,15 @@ plugin simpleMeshMod CatchMaterialIDNearest
 		_meshWrapper = meshWrapperClass._CreateWrapper undefined
 		_meshWrapper_SetValue = _meshWrapper._SetValue
 		pluginGraph = pluginDefinitionFile
-		pluginGraphDependencies = #(@"C:\Users\josep\Autodesk\3ds Max 2018\Max Creation Graph\Compounds\GetMaterialByRayTrace.maxcompound",@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\SceneNode_Mesh_in_World_Space.maxcompound")
+		pluginGraphDependencies = #(@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\Mesh_Polygons.maxcompound",@"C:\Users\josep\Autodesk\3ds Max 2018\Max Creation Graph\Compounds\GetMaterialIDByRayTracePolygon.maxcompound",@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\SceneNode_Mesh_in_World_Space.maxcompound",@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\Group_Indices_by_Value.maxcompound",@"C:\Users\josep\Autodesk\3ds Max 2018\Max Creation Graph\Compounds\GetMaterialByRayTrace.maxcompound",@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\Array_Maximum.maxcompound",@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\Index_of_Maximum.maxcompound",@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\Index_of_Max_Item.maxcompound")
 
 		-- value wrapper local initializations
 		local meshWrapperClass = dotNetClass "Autodesk.Max.MaxPlus.Mesh"
 		meshWrapper = meshWrapperClass._CreateWrapper (undefined)
 		meshWrapper_SetValue = meshWrapper._SetValue
-		local hitMeshWrapperClass = dotNetClass "Autodesk.Max.MaxPlus.INode"
-		hitMeshWrapper = hitMeshWrapperClass._CreateWrapper (undefined)
-		hitMeshWrapper_SetValue = hitMeshWrapper._SetValue
+		local Hit_MeshWrapperClass = dotNetClass "Autodesk.Max.MaxPlus.INode"
+		Hit_MeshWrapper = Hit_MeshWrapperClass._CreateWrapper (undefined)
+		Hit_MeshWrapper_SetValue = Hit_MeshWrapper._SetValue
 		local modifierTransformWrapperClass = dotNetClass "Autodesk.Max.MaxPlus.Matrix3"
 		modifierTransformWrapper = modifierTransformWrapperClass._CreateWrapper (matrix3 1)
 		modifierTransformWrapper_SetValue = modifierTransformWrapper._SetValue
@@ -94,9 +96,11 @@ plugin simpleMeshMod CatchMaterialIDNearest
 
 	rollout params "Parameters"
 	(
-		pickbutton hitMesh "hitMesh" autodisplay:true type:#node toolTip:"hitMesh" width:140
-		on hitMesh rightclick do ( hitMesh.object = undefined; )
-		spinner RayLength "RayLength" range:[0, 10000, 1] type:#float
+		checkbox Static_Or_Dynamic "Static Or Dynamic" checked:False
+		pickbutton Hit_Mesh "Hit Mesh" autodisplay:true type:#node toolTip:"Hit Mesh" width:140
+		on Hit_Mesh rightclick do ( Hit_Mesh.object = undefined; )
+		checkbox ReverseRay "ReverseRay" checked:False
+		spinner Ray_Length "Ray Length" range:[0, 10000, 1] type:#float
 
 	)
 
@@ -129,7 +133,7 @@ plugin simpleMeshMod CatchMaterialIDNearest
 	(
 		if (tmHandler == undefined) then ( tmHandler = when transform owningNode changes do _dummy = not _dummy )
 		if (pluginInstance == undefined) then ( return undefined )
-		local args = dotnet_ValueToDotNetObject #(meshWrapper, hitMeshWrapper, modifierTransformWrapper, RayLength) argsType
+		local args = dotnet_ValueToDotNetObject #(meshWrapper, Static_Or_Dynamic, Hit_MeshWrapper, modifierTransformWrapper, ReverseRay, Ray_Length) argsType
 		pluginInstance_UpdateMesh (currentTime as integer) _meshWrapper args
 		ok
 	)
@@ -137,7 +141,7 @@ plugin simpleMeshMod CatchMaterialIDNearest
 	on modifyMesh do
 	(
 		_meshWrapper_SetValue mesh
-		hitMeshWrapper_SetValue hitMesh
+		Hit_MeshWrapper_SetValue Hit_Mesh
 		meshWrapper_SetValue mesh
 		modifierTransformWrapper_SetValue owningNode.Transform
 

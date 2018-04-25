@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<graph version="0.50" uuid="c1caab3a-0692-4f7c-96fd-74c2b1568833">
+  <meta_info>
+    <graph_version guid="adc67e97-0cf4-4ad9-938a-ff45d497523a" number="0.0.16" />
+    <identifier>GetMaterialByRayTracePolygon</identifier>
+    <displayName>GetMaterialByRayTracePolygon</displayName>
+    <author>Nguyen Phi Hung</author>
+    <category>Compound</category>
+  </meta_info>
+  <nodes>
+    <node operator="Input: Boolean" id="12" name="Inward" position="320:160" size="178:0" />
+    <node operator="GetMaterialByRayTrace" id="3" position="800:40" size="180:0" />
+    <node operator="MaximumElement" id="4" position="1180:360" size="150:0" />
+    <node operator="Input: Matrix" id="2" name="SouceMeshMatrix" position="301:403" size="172:0" />
+    <node operator="Input: TriMesh" id="1" name="SourceMesh" position="308:277" size="160:0" />
+    <node operator="Input: Boolean" id="6" name="DynamicToggle" position="300:-116" size="178:0" />
+    <node operator="Output: compound" id="8" position="1600:560" size="150:0" />
+    <node operator="Input: Single" id="28" name="RayLength" position="306:652" size="166:0" />
+    <node operator="Input: tuple2" id="9" name="Polygon" position="304:520" size="160:0" />
+    <node operator="PairItem2" id="5" position="760:540" size="150:0" />
+    <node operator="Map" id="7" position="1100:540" size="150:0" />
+    <node operator="ArrayOf" id="10" position="1440:420" size="150:0" />
+    <node operator="Input: TriMesh" id="0" name="HitMesh" position="301:59" size="160:0" />
+    <node operator="Count" id="11" position="1283:541" size="150:0" />
+    <node groupnode="Input" id="15" position="287:-145" size="220:1054" bg_color="#FFC5C5C5">
+      <nodes>12,2,1,6,28,9,0</nodes>
+    </node>
+  </nodes>
+  <connections>
+    <connection sourcenode="11" destnode="10" sourceport="0" destport="1" />
+    <connection sourcenode="7" destnode="4" sourceport="0" destport="0" />
+    <connection sourcenode="10" destnode="8" sourceport="0" destport="0" />
+    <connection sourcenode="7" destnode="11" sourceport="0" destport="0" />
+    <connection sourcenode="9" destnode="5" sourceport="0" destport="0" />
+    <connection sourcenode="5" destnode="7" sourceport="0" destport="0" />
+    <connection sourcenode="4" destnode="10" sourceport="0" destport="0" />
+    <connection sourcenode="3" destnode="7" sourceport="1" destport="1" />
+    <connection sourcenode="6" destnode="3" sourceport="0" destport="0" />
+    <connection sourcenode="0" destnode="3" sourceport="0" destport="1" />
+    <connection sourcenode="1" destnode="3" sourceport="0" destport="2" />
+    <connection sourcenode="28" destnode="3" sourceport="0" destport="6" />
+    <connection sourcenode="12" destnode="3" sourceport="0" destport="5" />
+    <connection sourcenode="2" destnode="3" sourceport="0" destport="4" />
+  </connections>
+</graph>
