@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<graph version="0.50" uuid="c1caab3a-0692-4f7c-96fd-74c2b1568833">
+  <meta_info>
+    <graph_version guid="3a3d6316-c750-4472-94a7-6e2a26a349e8" number="0.0.8" />
+    <identifier>GetMaterialByRayTrace</identifier>
+    <author>Nguyen Phi Hung</author>
+    <category>Compound</category>
+  </meta_info>
+  <nodes>
+    <node operator="Input: Matrix" id="2" name="SouceMeshMatrix" position="260:604" size="172:0" />
+    <node operator="Input: TriMesh" id="0" name="HitMesh" position="320:104" size="160:0" />
+    <node operator="Input: Boolean" id="6" name="DynamicToggle" position="300:-116" size="178:0" />
+    <node operator="Input: Int32" id="9" name="FaceID" position="240:464" size="178:0" />
+    <node operator="Input: TriMesh" id="1" name="SourceMesh" position="320:284" size="160:0" />
+    <node operator="PairItem1" id="22" position="2089:118" size="150:0" />
+    <node operator="RayTraceFaceId" id="13" position="2422:150" size="150:0" />
+    <node operator="MaterialIds" id="33" position="957:423" size="150:0" />
+    <node operator="At" id="25" position="2724:-111" size="150:0" />
+    <node operator="If" id="19" position="2731:506" size="150:0" />
+    <node operator="PairItem1" id="7" position="1744:229" size="120:0" />
+    <node operator="At" id="41" position="1207:290" size="140:0" />
+    <node operator="RayTraceAddGeometry" id="4" position="1524:69" size="150:0" />
+    <node operator="Pass-through: Face3" id="10" position="1421:303" size="150:0" />
+    <node operator="Ray" id="3" position="1944:369" size="150:0" />
+    <node operator="FaceMidpoint" id="12" position="1624:449" size="150:0" />
+    <node operator="At" id="23" position="2404:-11" size="150:0" />
+    <node operator="Transform" id="16" position="1834:506" size="150:0" />
+    <node operator="Output: compound" id="8" position="3420:500" size="150:0" />
+    <node operator="RayTraceHit" id="18" position="2324:389" size="150:0" />
+    <node operator="Indices" id="24" position="2124:-31" size="150:0" />
+    <node operator="FaceNormal" id="11" position="1671:353" size="150:0" />
+    <node operator="RayTraceFaceIntersection" id="14" position="2166:232" size="202:0" />
+    <node operator="MeshFaces" id="34" position="1017:271" size="150:0" />
+    <node operator="MaterialIds" id="17" position="1148:-265" size="150:0" />
+    <node operator="RayTraceUpdateGeometry" id="20" position="1864:69" size="190:0" />
+    <node operator="Pass-through: Int32" id="47" position="975:716" size="160:0" />
+    <node operator="PairItem2" id="21" position="1724:-31" size="150:0" />
+    <node operator="At" id="46" position="1474:676" size="140:0" />
+    <node operator="RayTraceScene" id="5" position="1344:-111" size="150:0" />
+    <node groupnode="Get matid func" id="26" position="743:-320" size="2206:1265" bg_color="#FFF2E0C5">
+      <nodes>22,13,33,25,19,7,41,4,10,3,12,23,16,18,24,11,14,34,17,20,47,21,46,5</nodes>
+    </node>
+    <node groupnode="Input" id="15" position="231:-145" size="258:864" bg_color="#FFC5C5C5">
+      <nodes>2,0,6,9,1</nodes>
+    </node>
+  </nodes>
+  <connections>
+    <connection sourcenode="0" destnode="4" sourceport="0" destport="1" />
+    <connection sourcenode="1" destnode="33" sourceport="0" destport="0" />
+    <connection sourcenode="0" destnode="20" sourceport="0" destport="2" />
+    <connection sourcenode="7" destnode="20" sourceport="0" destport="0" />
+    <connection sourcenode="11" destnode="3" sourceport="0" destport="1" />
+    <connection sourcenode="10" destnode="12" sourceport="0" destport="0" />
+    <connection sourcenode="16" destnode="3" sourceport="0" destport="0" />
+    <connection sourcenode="41" destnode="10" sourceport="0" destport="0" />
+    <connection sourcenode="17" destnode="24" sourceport="0" destport="0" />
+    <connection sourcenode="33" destnode="46" sourceport="0" destport="0" />
+    <connection sourcenode="34" destnode="41" sourceport="0" destport="0" />
+    <connection sourcenode="22" destnode="14" sourceport="0" destport="0" />
+    <connection sourcenode="13" destnode="23" sourceport="0" destport="1" />
+    <connection sourcenode="18" destnode="19" sourceport="0" destport="0" />
+    <connection sourcenode="10" destnode="11" sourceport="0" destport="0" />
+    <connection sourcenode="14" destnode="13" sourceport="0" destport="0" />
+    <connection sourcenode="24" destnode="23" sourceport="0" destport="0" />
+    <connection sourcenode="25" destnode="19" sourceport="0" destport="1" />
+    <connection sourcenode="14" destnode="18" sourceport="0" destport="0" />
+    <connection sourcenode="23" destnode="25" sourceport="0" destport="1" />
+    <connection sourcenode="46" destnode="19" sourceport="0" destport="2" />
+    <connection sourcenode="17" destnode="25" sourceport="0" destport="0" />
+    <connection sourcenode="5" destnode="4" sourceport="0" destport="0" />
+    <connection sourcenode="4" destnode="21" sourceport="0" destport="0" />
+    <connection sourcenode="20" destnode="22" sourceport="0" destport="0" />
+    <connection sourcenode="2" destnode="16" sourceport="0" destport="1" />
+    <connection sourcenode="3" destnode="14" sourceport="0" destport="1" />
+    <connection sourcenode="47" destnode="41" sourceport="0" destport="1" />
+    <connection sourcenode="21" destnode="20" sourceport="0" destport="1" />
+    <connection sourcenode="12" destnode="16" sourceport="0" destport="0" />
+    <connection sourcenode="47" destnode="46" sourceport="0" destport="1" />
+    <connection sourcenode="19" destnode="8" sourceport="0" destport="0" />
+    <connection sourcenode="0" destnode="17" sourceport="0" destport="0" />
+    <connection sourcenode="1" destnode="34" sourceport="0" destport="0" />
+    <connection sourcenode="9" destnode="47" sourceport="0" destport="0" />
+    <connection sourcenode="6" destnode="5" sourceport="0" destport="0" />
+    <connection sourcenode="4" destnode="7" sourceport="0" destport="0" />
+  </connections>
+</graph>

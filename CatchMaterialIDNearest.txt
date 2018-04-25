@@ -1,0 +1,136 @@
+(InstanceState state, Mesh mesh, SceneNode hitMesh, Matrix modifierTransform) => 
+  {
+    Array[Face3] _0MeshFaces; // 0:Mesh Faces 286594
+    Array[Integer] _1Indices; // 7:Indices 286593
+    Fn0[->RayTraceScene] _9__thunk__;
+    Fn0[->Array[Face3]] _11__thunk__;
+    Fn0[->Matrix] _12__thunk__;
+    Fn0[->Array[Integer]] _17__thunk__;
+    Fn0[->Array[Integer]] _19__thunk__;
+    Fn0[->Array[Integer]] _21__thunk__;
+    Array[Integer] _22Map; // 4:For Each 286592
+    Mesh _23SetMaterialIds; // 32:Mesh Set Material Ids 286590
+    
+    _0MeshFaces = MeshFaces(mesh);
+    
+    _1Indices = Indices(_0MeshFaces);
+    
+    _9__thunk__ = Internal__Memoize(() => 
+      {
+        Boolean _2False; // 2:False 286624
+        Mesh _3MeshFromNode; // 9:SceneNode Mesh in World Space->2:SceneNode Mesh 286627
+        Matrix _4ObjectTransform; // 9:SceneNode Mesh in World Space->0:SceneNode World Transform 286628
+        Mesh _5Transform_Mesh; // 9:SceneNode Mesh in World Space->5:Transform Mesh 286626
+        RayTraceScene _6PairItem1; // 29:GetMaterialByRayTrace->7:Pair Item 1 286605
+        Integer _7PairItem2; // 29:GetMaterialByRayTrace->21:Pair Item 2 286608
+        RayTraceScene _8PairItem1; // 29:GetMaterialByRayTrace->22:Pair Item 1 286603
+        
+        _2False = False();
+        
+        _3MeshFromNode = MeshFromNode(hitMesh);
+        
+        _4ObjectTransform = ObjectTransform(hitMesh);
+        
+        _5Transform_Mesh = Transform_Mesh(_3MeshFromNode, _4ObjectTransform);
+        
+        _6PairItem1 = PairItem1(RayTraceAddGeometry(RayTraceScene(_2False), _5Transform_Mesh));
+        
+        _7PairItem2 = PairItem2(RayTraceAddGeometry(RayTraceScene(_2False), _5Transform_Mesh));
+        
+        _8PairItem1 = PairItem1(RayTraceUpdateGeometry(_6PairItem1, _7PairItem2, _5Transform_Mesh));
+        _8PairItem1;
+        });
+    
+    _11__thunk__ = Internal__Memoize(() => 
+      {
+        Array[Face3] _10MeshFaces; // 29:GetMaterialByRayTrace->34:Mesh Faces 286614
+        
+        _10MeshFaces = MeshFaces(mesh);
+        _10MeshFaces;
+        });
+    
+    _12__thunk__ = Internal__Memoize(() => 
+      {
+        modifierTransform;
+        });
+    
+    _17__thunk__ = Internal__Memoize(() => 
+      {
+        Mesh _13MeshFromNode; // 9:SceneNode Mesh in World Space->2:SceneNode Mesh 286627
+        Matrix _14ObjectTransform; // 9:SceneNode Mesh in World Space->0:SceneNode World Transform 286628
+        Mesh _15Transform_Mesh; // 9:SceneNode Mesh in World Space->5:Transform Mesh 286626
+        Array[Integer] _16MaterialIds; // 29:GetMaterialByRayTrace->17:Mesh Material Ids 286618
+        
+        _13MeshFromNode = MeshFromNode(hitMesh);
+        
+        _14ObjectTransform = ObjectTransform(hitMesh);
+        
+        _15Transform_Mesh = Transform_Mesh(_13MeshFromNode, _14ObjectTransform);
+        
+        _16MaterialIds = MaterialIds(_15Transform_Mesh);
+        _16MaterialIds;
+        });
+    
+    _19__thunk__ = Internal__Memoize(() => 
+      {
+        Array[Integer] _18Indices; // 29:GetMaterialByRayTrace->24:Indices 286620
+        
+        _18Indices = Indices(_17__thunk__());
+        _18Indices;
+        });
+    
+    _21__thunk__ = Internal__Memoize(() => 
+      {
+        Array[Integer] _20MaterialIds; // 29:GetMaterialByRayTrace->33:Mesh Material Ids 286623
+        
+        _20MaterialIds = MaterialIds(mesh);
+        _20MaterialIds;
+        });
+    
+    _22Map = Map(_1Indices, (Integer x0) => 
+      {
+        Face3 _0At; // 29:GetMaterialByRayTrace->41:At 286613
+        Vector3 _1FaceMidpoint; // 29:GetMaterialByRayTrace->12:Face Midpoint 286611
+        Vector3 _2Transform; // 29:GetMaterialByRayTrace->16:Transform Vector 286610
+        Vector3 _3FaceNormal; // 29:GetMaterialByRayTrace->11:Face Normal 286616
+        Ray _4Ray; // 29:GetMaterialByRayTrace->3:Ray 286609
+        Boolean _5RayTraceHit; // 29:GetMaterialByRayTrace->18:Ray Trace Hit 286601
+        Integer _10If; // 29:GetMaterialByRayTrace->19:If 286600
+        
+        _0At = At(_11__thunk__(), x0);
+        
+        _1FaceMidpoint = FaceMidpoint(_0At);
+        
+        _2Transform = Transform(_1FaceMidpoint, _12__thunk__());
+        
+        _3FaceNormal = FaceNormal(_0At);
+        
+        _4Ray = Ray(_2Transform, _3FaceNormal);
+        
+        _5RayTraceHit = RayTraceHit(RayTraceFaceIntersection(_9__thunk__(), _4Ray));
+        
+        _10If = if (_5RayTraceHit)
+          {
+            Integer _6RayTraceFaceId; // 29:GetMaterialByRayTrace->13:Ray Trace Face Id 286621
+            Integer _7At; // 29:GetMaterialByRayTrace->23:At 286619
+            Integer _8At; // 29:GetMaterialByRayTrace->25:At 286617
+            
+            _6RayTraceFaceId = RayTraceFaceId(RayTraceFaceIntersection(_9__thunk__(), _4Ray));
+            
+            _7At = At(_19__thunk__(), _6RayTraceFaceId);
+            
+            _8At = At(_17__thunk__(), _7At);
+            _8At;
+            }else
+          {
+            Integer _9At; // 29:GetMaterialByRayTrace->46:At 286622
+            
+            _9At = At(_21__thunk__(), x0);
+            _9At;
+            };
+        _10If;
+        });
+    
+    _23SetMaterialIds = SetMaterialIds(mesh, _22Map);
+    _23SetMaterialIds;
+    }
