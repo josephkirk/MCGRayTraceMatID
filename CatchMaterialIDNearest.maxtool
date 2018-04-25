@@ -1,36 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <graph version="0.50" uuid="83939040-272f-496d-8ccd-ccda4548627b">
   <meta_info>
-    <graph_version guid="a57b940a-6f7c-4083-9083-d65f3ab816ee" number="0.0.20" />
+    <graph_version guid="03f6fec3-3f8e-48b6-a0e4-ad18bdfd829b" number="0.0.21" />
     <identifier>CatchMaterialIDNearest</identifier>
     <displayName>CatchMaterialIDNearest</displayName>
     <graph_editor_UI>true</graph_editor_UI>
   </meta_info>
   <nodes>
     <node operator="Parameter: Boolean" id="13" name="Static Or Dynamic" default_value="false" position="-420:700" size="154:0" />
-    <node operator="Parameter: Single" id="5" name="Ray Length" min_value="0" max_value="10000" default_value="1" position="-400:400" size="150:0" />
+    <node operator="Parameter: Single" id="5" name="Ray Length" min_value="0" max_value="10000" default_value="10" position="-400:400" size="150:0" />
     <node operator="Parameter: Boolean" id="7" name="ReverseRay" default_value="false" position="-400:820" size="154:0" />
     <node operator="Modifier: Matrix" id="3" position="-440:300" size="226:0" />
     <node operator="Modifier: TriMesh" id="1" position="-420:620" size="150:0" />
     <node operator="SetMaterialIds" id="32" position="1040:560" size="166:0" />
     <node operator="Output: modifier" id="15" position="1360:620" size="160:0" />
     <node operator="Parameter: INode" id="6" name="Hit Mesh" position="-420:180" size="166:0" />
-    <node operator="NodeMeshInWorldSpace" id="9" position="127:121" size="180:0" />
+    <node operator="NodeMeshInWorldSpace" id="9" position="-72:138" size="180:0" />
     <node operator="Mesh Polygons" id="16" position="120:700" size="150:0" />
     <node operator="GetMaterialByRayTracePolygon" id="14" position="380:120" size="208:0" />
     <node operator="Map" id="0" position="369:658" size="150:0" />
     <node operator="Flatten" id="4" position="680:640" size="150:0" />
+    <node operator="PushMeshVertices" id="12" position="160:120" size="150:0" />
+    <node operator="Parameter: Single" id="17" name="Push HitMesh" min_value="0" max_value="10000" default_value="1" position="-400:940" size="150:0" />
     <node groupnode="output" id="10" position="1351:591" size="178:106" bg_color="#FFC5C5C5">
       <nodes>15</nodes>
     </node>
-    <node groupnode="Input" id="8" position="-449:151" size="267:803" bg_color="#FFC5C5C5">
+    <node groupnode="Input" id="8" position="-449:151" size="267:1028" bg_color="#FFC5C5C5">
       <nodes>13,5,7,3,1,6</nodes>
     </node>
     <node groupnode="Apply MatID" id="11" position="1031:531" size="184:163" bg_color="#FFC5C5C5">
       <nodes>32</nodes>
     </node>
-    <node groupnode="Main Functions" id="2" position="111:91" size="504:369" bg_color="#FFC5C5C5">
-      <nodes>9,14</nodes>
+    <node groupnode="Main Functions" id="2" position="-84:89" size="699:371" bg_color="#FFC5C5C5">
+      <nodes>9,14,12</nodes>
     </node>
   </nodes>
   <connections>
@@ -42,11 +44,13 @@
     <connection sourcenode="4" destnode="32" sourceport="0" destport="1" />
     <connection sourcenode="32" destnode="15" sourceport="0" destport="0" />
     <connection sourcenode="6" destnode="9" sourceport="0" destport="0" />
+    <connection sourcenode="17" destnode="12" sourceport="0" destport="1" />
+    <connection sourcenode="9" destnode="12" sourceport="0" destport="0" />
     <connection sourcenode="7" destnode="14" sourceport="0" destport="5" />
     <connection sourcenode="3" destnode="14" sourceport="0" destport="4" />
     <connection sourcenode="5" destnode="14" sourceport="0" destport="6" />
     <connection sourcenode="1" destnode="14" sourceport="0" destport="3" />
     <connection sourcenode="13" destnode="14" sourceport="0" destport="1" />
-    <connection sourcenode="9" destnode="14" sourceport="0" destport="2" />
+    <connection sourcenode="12" destnode="14" sourceport="0" destport="2" />
   </connections>
 </graph>

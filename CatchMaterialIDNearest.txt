@@ -1,22 +1,22 @@
-(InstanceState state, Mesh mesh, Boolean Static Or Dynamic, SceneNode Hit Mesh, Matrix modifierTransform, Boolean ReverseRay, Float Ray Length) => 
+(InstanceState state, Mesh mesh, Boolean Static Or Dynamic, SceneNode Hit Mesh, Float Push HitMesh, Matrix modifierTransform, Boolean ReverseRay, Float Ray Length) => 
   {
-    Array[Integer] _0Mesh_Face_Polygon_Ids; // 16:Mesh Polygons->2:Mesh Face Polygon Ids 341057
-    Array[Integer] _1Indices; // 3:Group Indices by Value->4:Indices 341055
+    Array[Integer] _0Mesh_Face_Polygon_Ids; // 16:Mesh Polygons->2:Mesh Face Polygon Ids 342013
+    Array[Integer] _1Indices; // 3:Group Indices by Value->4:Indices 342011
     Fn0[->Array[Integer]] _2__thunk__;
-    Array[Pair[Integer,Array[Integer]]] _3Group_by_Key; // 3:Group Indices by Value->3:Group by Key 341054
-    Fn0[->RayTraceScene] _10__thunk__;
-    Fn0[->Array[Face3]] _12__thunk__;
-    Fn0[->Matrix] _13__thunk__;
-    Fn0[->Boolean] _14__thunk__;
-    Fn0[->Float] _15__thunk__;
-    Fn0[->Boolean] _17__thunk__;
-    Fn0[->Array[Integer]] _22__thunk__;
-    Fn0[->Array[Integer]] _24__thunk__;
-    Fn0[->Array[Integer]] _26__thunk__;
-    Fn0[->Integer] _28__thunk__;
-    Array[Array[Integer]] _29Map; // 0:For Each 341051
-    Array[Integer] _30Flatten; // 4:Flatten 341050
-    Mesh _31SetMaterialIds; // 32:Mesh Set Material Ids 341048
+    Array[Pair[Integer,Array[Integer]]] _3Group_by_Key; // 3:Group Indices by Value->3:Group by Key 342010
+    Fn0[->RayTraceScene] _15__thunk__;
+    Fn0[->Array[Face3]] _17__thunk__;
+    Fn0[->Matrix] _18__thunk__;
+    Fn0[->Boolean] _19__thunk__;
+    Fn0[->Float] _20__thunk__;
+    Fn0[->Boolean] _22__thunk__;
+    Fn0[->Array[Integer]] _32__thunk__;
+    Fn0[->Array[Integer]] _34__thunk__;
+    Fn0[->Array[Integer]] _36__thunk__;
+    Fn0[->Integer] _38__thunk__;
+    Array[Array[Integer]] _39Map; // 0:For Each 342007
+    Array[Integer] _40Flatten; // 4:Flatten 342006
+    Mesh _41SetMaterialIds; // 32:Mesh Set Material Ids 342004
     
     _0Mesh_Face_Polygon_Ids = Mesh_Face_Polygon_Ids(mesh);
     
@@ -29,20 +29,25 @@
     
     _3Group_by_Key = Group_by_Key(_1Indices, (Integer x0) => 
       {
-        Integer _0At; // 3:Group Indices by Value->5:At 341056
+        Integer _0At; // 3:Group Indices by Value->5:At 342012
         
         _0At = At(_2__thunk__(), x0);
         _0At;
         });
     
-    _10__thunk__ = Internal__Memoize(() => 
+    _15__thunk__ = Internal__Memoize(() => 
       {
-        Mesh _4MeshFromNode; // 9:SceneNode Mesh in World Space->2:SceneNode Mesh 341122
-        Matrix _5ObjectTransform; // 9:SceneNode Mesh in World Space->0:SceneNode World Transform 341123
-        Mesh _6Transform_Mesh; // 9:SceneNode Mesh in World Space->5:Transform Mesh 341121
-        RayTraceScene _7PairItem1; // 3:GetMaterialByRayTrace->7:Pair Item 1 341095
-        Integer _8PairItem2; // 3:GetMaterialByRayTrace->21:Pair Item 2 341098
-        RayTraceScene _9PairItem1; // 3:GetMaterialByRayTrace->22:Pair Item 1 341093
+        Mesh _4MeshFromNode; // 9:SceneNode Mesh in World Space->2:SceneNode Mesh 342086
+        Matrix _5ObjectTransform; // 9:SceneNode Mesh in World Space->0:SceneNode World Transform 342087
+        Mesh _6Transform_Mesh; // 9:SceneNode Mesh in World Space->5:Transform Mesh 342085
+        Array[Vector3] _7MeshVertices; // 12:Push Mesh->8:Mesh Vertices 342080
+        Array[Vector3] _8VertexNormals; // 12:Push Mesh->9:Mesh Vertex Normals 342081
+        Fn0[->Float] _9__thunk__;
+        Array[Vector3] _10ParallelCombine; // 12:Push Mesh->2:Combine Parallel 342079
+        Mesh _11SetMeshVertices; // 12:Push Mesh->10:Mesh Set Vertex Buffer 342078
+        RayTraceScene _12PairItem1; // 3:GetMaterialByRayTrace->7:Pair Item 1 342051
+        Integer _13PairItem2; // 3:GetMaterialByRayTrace->21:Pair Item 2 342054
+        RayTraceScene _14PairItem1; // 3:GetMaterialByRayTrace->22:Pair Item 1 342049
         
         _4MeshFromNode = MeshFromNode(Hit Mesh);
         
@@ -50,127 +55,176 @@
         
         _6Transform_Mesh = Transform_Mesh(_4MeshFromNode, _5ObjectTransform);
         
-        _7PairItem1 = PairItem1(RayTraceAddGeometry(RayTraceScene(Static Or Dynamic), _6Transform_Mesh));
+        _7MeshVertices = MeshVertices(_6Transform_Mesh);
         
-        _8PairItem2 = PairItem2(RayTraceAddGeometry(RayTraceScene(Static Or Dynamic), _6Transform_Mesh));
+        _8VertexNormals = VertexNormals(_6Transform_Mesh);
         
-        _9PairItem1 = PairItem1(RayTraceUpdateGeometry(_7PairItem1, _8PairItem2, _6Transform_Mesh));
-        _9PairItem1;
-        });
-    
-    _12__thunk__ = Internal__Memoize(() => 
-      {
-        Array[Face3] _11MeshFaces; // 3:GetMaterialByRayTrace->34:Mesh Faces 341104
+        _9__thunk__ = Internal__Memoize(() => 
+          {
+            Push HitMesh;
+            });
         
-        _11MeshFaces = MeshFaces(mesh);
-        _11MeshFaces;
-        });
-    
-    _13__thunk__ = Internal__Memoize(() => 
-      {
-        modifierTransform;
-        });
-    
-    _14__thunk__ = Internal__Memoize(() => 
-      {
-        ReverseRay;
-        });
-    
-    _15__thunk__ = Internal__Memoize(() => 
-      {
-        Ray Length;
+        _10ParallelCombine = ParallelCombine(_7MeshVertices, _8VertexNormals, (Vector3 x0, Vector3 x1) => 
+          {
+            Vector3 _0MultiplyByScalar; // 12:Push Mesh->0:Multiply Vector 342083
+            Vector3 _1Add; // 12:Push Mesh->1:Add 342082
+            
+            _0MultiplyByScalar = MultiplyByScalar(x1, _9__thunk__());
+            
+            _1Add = Add(x0, _0MultiplyByScalar);
+            _1Add;
+            });
+        
+        _11SetMeshVertices = SetMeshVertices(_6Transform_Mesh, _10ParallelCombine);
+        
+        _12PairItem1 = PairItem1(RayTraceAddGeometry(RayTraceScene(Static Or Dynamic), _11SetMeshVertices));
+        
+        _13PairItem2 = PairItem2(RayTraceAddGeometry(RayTraceScene(Static Or Dynamic), _11SetMeshVertices));
+        
+        _14PairItem1 = PairItem1(RayTraceUpdateGeometry(_12PairItem1, _13PairItem2, _11SetMeshVertices));
+        _14PairItem1;
         });
     
     _17__thunk__ = Internal__Memoize(() => 
       {
-        Boolean _16False; // 3:GetMaterialByRayTrace->31:False 341110
+        Array[Face3] _16MeshFaces; // 3:GetMaterialByRayTrace->34:Mesh Faces 342060
         
-        _16False = False();
-        _16False;
+        _16MeshFaces = MeshFaces(mesh);
+        _16MeshFaces;
+        });
+    
+    _18__thunk__ = Internal__Memoize(() => 
+      {
+        modifierTransform;
+        });
+    
+    _19__thunk__ = Internal__Memoize(() => 
+      {
+        ReverseRay;
+        });
+    
+    _20__thunk__ = Internal__Memoize(() => 
+      {
+        Ray Length;
         });
     
     _22__thunk__ = Internal__Memoize(() => 
       {
-        Mesh _18MeshFromNode; // 9:SceneNode Mesh in World Space->2:SceneNode Mesh 341122
-        Matrix _19ObjectTransform; // 9:SceneNode Mesh in World Space->0:SceneNode World Transform 341123
-        Mesh _20Transform_Mesh; // 9:SceneNode Mesh in World Space->5:Transform Mesh 341121
-        Array[Integer] _21MaterialIds; // 3:GetMaterialByRayTrace->17:Mesh Material Ids 341112
+        Boolean _21False; // 3:GetMaterialByRayTrace->31:False 342066
         
-        _18MeshFromNode = MeshFromNode(Hit Mesh);
-        
-        _19ObjectTransform = ObjectTransform(Hit Mesh);
-        
-        _20Transform_Mesh = Transform_Mesh(_18MeshFromNode, _19ObjectTransform);
-        
-        _21MaterialIds = MaterialIds(_20Transform_Mesh);
-        _21MaterialIds;
+        _21False = False();
+        _21False;
         });
     
-    _24__thunk__ = Internal__Memoize(() => 
+    _32__thunk__ = Internal__Memoize(() => 
       {
-        Array[Integer] _23Indices; // 3:GetMaterialByRayTrace->24:Indices 341114
+        Mesh _23MeshFromNode; // 9:SceneNode Mesh in World Space->2:SceneNode Mesh 342086
+        Matrix _24ObjectTransform; // 9:SceneNode Mesh in World Space->0:SceneNode World Transform 342087
+        Mesh _25Transform_Mesh; // 9:SceneNode Mesh in World Space->5:Transform Mesh 342085
+        Array[Vector3] _26MeshVertices; // 12:Push Mesh->8:Mesh Vertices 342080
+        Array[Vector3] _27VertexNormals; // 12:Push Mesh->9:Mesh Vertex Normals 342081
+        Fn0[->Float] _28__thunk__;
+        Array[Vector3] _29ParallelCombine; // 12:Push Mesh->2:Combine Parallel 342079
+        Mesh _30SetMeshVertices; // 12:Push Mesh->10:Mesh Set Vertex Buffer 342078
+        Array[Integer] _31MaterialIds; // 3:GetMaterialByRayTrace->17:Mesh Material Ids 342068
         
-        _23Indices = Indices(_22__thunk__());
-        _23Indices;
+        _23MeshFromNode = MeshFromNode(Hit Mesh);
+        
+        _24ObjectTransform = ObjectTransform(Hit Mesh);
+        
+        _25Transform_Mesh = Transform_Mesh(_23MeshFromNode, _24ObjectTransform);
+        
+        _26MeshVertices = MeshVertices(_25Transform_Mesh);
+        
+        _27VertexNormals = VertexNormals(_25Transform_Mesh);
+        
+        _28__thunk__ = Internal__Memoize(() => 
+          {
+            Push HitMesh;
+            });
+        
+        _29ParallelCombine = ParallelCombine(_26MeshVertices, _27VertexNormals, (Vector3 x0, Vector3 x1) => 
+          {
+            Vector3 _0MultiplyByScalar; // 12:Push Mesh->0:Multiply Vector 342083
+            Vector3 _1Add; // 12:Push Mesh->1:Add 342082
+            
+            _0MultiplyByScalar = MultiplyByScalar(x1, _28__thunk__());
+            
+            _1Add = Add(x0, _0MultiplyByScalar);
+            _1Add;
+            });
+        
+        _30SetMeshVertices = SetMeshVertices(_25Transform_Mesh, _29ParallelCombine);
+        
+        _31MaterialIds = MaterialIds(_30SetMeshVertices);
+        _31MaterialIds;
         });
     
-    _26__thunk__ = Internal__Memoize(() => 
+    _34__thunk__ = Internal__Memoize(() => 
       {
-        Array[Integer] _25MaterialIds; // 3:GetMaterialByRayTrace->33:Mesh Material Ids 341117
+        Array[Integer] _33Indices; // 3:GetMaterialByRayTrace->24:Indices 342070
         
-        _25MaterialIds = MaterialIds(mesh);
-        _25MaterialIds;
+        _33Indices = Indices(_32__thunk__());
+        _33Indices;
         });
     
-    _28__thunk__ = Internal__Memoize(() => 
+    _36__thunk__ = Internal__Memoize(() => 
       {
-        Integer _27Zero; // 3:Index of Maximum->3:Zero Integer 341071
+        Array[Integer] _35MaterialIds; // 3:GetMaterialByRayTrace->33:Mesh Material Ids 342073
         
-        _27Zero = Zero();
-        _27Zero;
+        _35MaterialIds = MaterialIds(mesh);
+        _35MaterialIds;
         });
     
-    _29Map = Map(_3Group_by_Key, (Pair[Integer,Array[Integer]] x0) => 
+    _38__thunk__ = Internal__Memoize(() => 
       {
-        Array[Integer] _0PairItem2; // 14:GetMaterialByRayTracePolygon->5:Pair Item 2 341080
-        Array[Integer] _1Map; // 14:GetMaterialByRayTracePolygon->7:For Each 341079
-        Array[Integer] _2Indices; // 3:Index of Maximum->1:Indices 341070
+        Integer _37Zero; // 3:Index of Maximum->3:Zero Integer 342027
+        
+        _37Zero = Zero();
+        _37Zero;
+        });
+    
+    _39Map = Map(_3Group_by_Key, (Pair[Integer,Array[Integer]] x0) => 
+      {
+        Array[Integer] _0PairItem2; // 14:GetMaterialByRayTracePolygon->5:Pair Item 2 342036
+        Array[Integer] _1Map; // 14:GetMaterialByRayTracePolygon->7:For Each 342035
+        Array[Integer] _2Indices; // 3:Index of Maximum->1:Indices 342026
         Fn0[->Array[Integer]] _3__thunk__;
-        Integer _4Aggregate; // 3:Index of Maximum->2:Aggregate 341069
-        Integer _5At; // 4:Array Maximum->0:At 341067
-        Integer _6Count; // 14:GetMaterialByRayTracePolygon->11:Count 341118
-        Array[Integer] _7ArrayOf; // 14:GetMaterialByRayTracePolygon->10:Array of Value 341065
+        Integer _4Aggregate; // 3:Index of Maximum->2:Aggregate 342025
+        Integer _5At; // 4:Array Maximum->0:At 342023
+        Integer _6Count; // 14:GetMaterialByRayTracePolygon->11:Count 342074
+        Array[Integer] _7ArrayOf; // 14:GetMaterialByRayTracePolygon->10:Array of Value 342021
         
         _0PairItem2 = PairItem2(x0);
         
         _1Map = Map(_0PairItem2, (Integer x0) => 
           {
-            Face3 _0At; // 3:GetMaterialByRayTrace->41:At 341103
-            Vector3 _1FaceMidpoint; // 3:GetMaterialByRayTrace->12:Face Midpoint 341101
-            Vector3 _2Transform; // 3:GetMaterialByRayTrace->16:Transform Vector 341100
-            Vector3 _6If; // 3:GetMaterialByRayTrace->36:If 341106
-            Ray _7Ray; // 3:GetMaterialByRayTrace->3:Ray 341099
-            Float _8RayTraceDistance; // 3:GetMaterialByRayTrace->27:Ray Trace Distance 341091
-            Boolean _9LessThanOrEqual; // 3:GetMaterialByRayTrace->30:Is Less Than or Equal 341090
-            Boolean _11If; // 3:GetMaterialByRayTrace->29:If 341089
-            Integer _16If; // 3:GetMaterialByRayTrace->19:If 341088
+            Face3 _0At; // 3:GetMaterialByRayTrace->41:At 342059
+            Vector3 _1FaceMidpoint; // 3:GetMaterialByRayTrace->12:Face Midpoint 342057
+            Vector3 _2Transform; // 3:GetMaterialByRayTrace->16:Transform Vector 342056
+            Vector3 _6If; // 3:GetMaterialByRayTrace->36:If 342062
+            Ray _7Ray; // 3:GetMaterialByRayTrace->3:Ray 342055
+            Float _8RayTraceDistance; // 3:GetMaterialByRayTrace->27:Ray Trace Distance 342047
+            Boolean _9LessThanOrEqual; // 3:GetMaterialByRayTrace->30:Is Less Than or Equal 342046
+            Boolean _11If; // 3:GetMaterialByRayTrace->29:If 342045
+            Integer _16If; // 3:GetMaterialByRayTrace->19:If 342044
             
-            _0At = At(_12__thunk__(), x0);
+            _0At = At(_17__thunk__(), x0);
             
             _1FaceMidpoint = FaceMidpoint(_0At);
             
-            _2Transform = Transform(_1FaceMidpoint, _13__thunk__());
+            _2Transform = Transform(_1FaceMidpoint, _18__thunk__());
             
-            _6If = if (_14__thunk__())
+            _6If = if (_19__thunk__())
               {
-                Vector3 _3FaceNormal; // 3:GetMaterialByRayTrace->11:Face Normal 341107
+                Vector3 _3FaceNormal; // 3:GetMaterialByRayTrace->11:Face Normal 342063
                 
                 _3FaceNormal = FaceNormal(_0At);
                 _3FaceNormal;
                 }else
               {
-                Vector3 _4FaceNormal; // 3:GetMaterialByRayTrace->11:Face Normal 341107
-                Vector3 _5Negate; // 3:GetMaterialByRayTrace->32:Negate Vector 341108
+                Vector3 _4FaceNormal; // 3:GetMaterialByRayTrace->11:Face Normal 342063
+                Vector3 _5Negate; // 3:GetMaterialByRayTrace->32:Negate Vector 342064
                 
                 _4FaceNormal = FaceNormal(_0At);
                 
@@ -180,38 +234,38 @@
             
             _7Ray = Ray(_2Transform, _6If);
             
-            _8RayTraceDistance = RayTraceDistance(RayTraceFaceIntersection(_10__thunk__(), _7Ray));
+            _8RayTraceDistance = RayTraceDistance(RayTraceFaceIntersection(_15__thunk__(), _7Ray));
             
-            _9LessThanOrEqual = LessThanOrEqual(_8RayTraceDistance, _15__thunk__());
+            _9LessThanOrEqual = LessThanOrEqual(_8RayTraceDistance, _20__thunk__());
             
             _11If = if (_9LessThanOrEqual)
               {
-                Boolean _10RayTraceHit; // 3:GetMaterialByRayTrace->18:Ray Trace Hit 341109
+                Boolean _10RayTraceHit; // 3:GetMaterialByRayTrace->18:Ray Trace Hit 342065
                 
-                _10RayTraceHit = RayTraceHit(RayTraceFaceIntersection(_10__thunk__(), _7Ray));
+                _10RayTraceHit = RayTraceHit(RayTraceFaceIntersection(_15__thunk__(), _7Ray));
                 _10RayTraceHit;
                 }else
               {
-                _17__thunk__();
+                _22__thunk__();
                 };
             
             _16If = if (_11If)
               {
-                Integer _12RayTraceFaceId; // 3:GetMaterialByRayTrace->13:Ray Trace Face Id 341115
-                Integer _13At; // 3:GetMaterialByRayTrace->23:At 341113
-                Integer _14At; // 3:GetMaterialByRayTrace->25:At 341111
+                Integer _12RayTraceFaceId; // 3:GetMaterialByRayTrace->13:Ray Trace Face Id 342071
+                Integer _13At; // 3:GetMaterialByRayTrace->23:At 342069
+                Integer _14At; // 3:GetMaterialByRayTrace->25:At 342067
                 
-                _12RayTraceFaceId = RayTraceFaceId(RayTraceFaceIntersection(_10__thunk__(), _7Ray));
+                _12RayTraceFaceId = RayTraceFaceId(RayTraceFaceIntersection(_15__thunk__(), _7Ray));
                 
-                _13At = At(_24__thunk__(), _12RayTraceFaceId);
+                _13At = At(_34__thunk__(), _12RayTraceFaceId);
                 
-                _14At = At(_22__thunk__(), _13At);
+                _14At = At(_32__thunk__(), _13At);
                 _14At;
                 }else
               {
-                Integer _15At; // 3:GetMaterialByRayTrace->46:At 341116
+                Integer _15At; // 3:GetMaterialByRayTrace->46:At 342072
                 
-                _15At = At(_26__thunk__(), x0);
+                _15At = At(_36__thunk__(), x0);
                 _15At;
                 };
             _16If;
@@ -224,12 +278,12 @@
             _1Map;
             });
         
-        _4Aggregate = Aggregate(_2Indices, _28__thunk__(), (Integer x0, Integer x1) => 
+        _4Aggregate = Aggregate(_2Indices, _38__thunk__(), (Integer x0, Integer x1) => 
           {
-            Integer _0At; // 4:Index of Max Item->4:At 341077
-            Integer _1At; // 4:Index of Max Item->5:At 341078
-            Boolean _2GreaterThanOrEqual; // 4:Index of Max Item->2:Is Greater Than or Equal 341076
-            Integer _3If; // 4:Index of Max Item->1:If 341075
+            Integer _0At; // 4:Index of Max Item->4:At 342033
+            Integer _1At; // 4:Index of Max Item->5:At 342034
+            Boolean _2GreaterThanOrEqual; // 4:Index of Max Item->2:Is Greater Than or Equal 342032
+            Integer _3If; // 4:Index of Max Item->1:If 342031
             
             _0At = At(_3__thunk__(), x0);
             
@@ -255,8 +309,8 @@
         _7ArrayOf;
         });
     
-    _30Flatten = Flatten(_29Map);
+    _40Flatten = Flatten(_39Map);
     
-    _31SetMaterialIds = SetMaterialIds(mesh, _30Flatten);
-    _31SetMaterialIds;
+    _41SetMaterialIds = SetMaterialIds(mesh, _40Flatten);
+    _41SetMaterialIds;
     }

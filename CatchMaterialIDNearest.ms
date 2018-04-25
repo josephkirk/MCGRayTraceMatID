@@ -28,8 +28,9 @@ plugin simpleMeshMod CatchMaterialIDNearest
 	(
 		Static_Or_Dynamic ui:Static_Or_Dynamic default:False type:#boolean animatable:true
 		Hit_Mesh ui:Hit_Mesh type:#node useNodeOsValidity:true useNodeTmValidity:true
+		Push_HitMesh ui:Push_HitMesh default:1 type:#float animatable:true
 		ReverseRay ui:ReverseRay default:False type:#boolean animatable:true
-		Ray_Length ui:Ray_Length default:1 type:#float animatable:true
+		Ray_Length ui:Ray_Length default:10 type:#float animatable:true
 		_dummy type:#boolean invisibleInTV:true -- this exists to enable easy invalidation of the object
 		pluginGraph type:#filename assettype:#MaxCreationGraph readOnly:true enumAsAsset:true 
 		pluginGraphDependencies type:#filenametab assettype:#MaxCreationGraph readOnly:true enumAsAsset:true tabSize:0 tabSizeVariable:true
@@ -59,7 +60,7 @@ plugin simpleMeshMod CatchMaterialIDNearest
 		_meshWrapper = meshWrapperClass._CreateWrapper undefined
 		_meshWrapper_SetValue = _meshWrapper._SetValue
 		pluginGraph = pluginDefinitionFile
-		pluginGraphDependencies = #(@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\Mesh_Polygons.maxcompound",@"C:\Users\josep\Autodesk\3ds Max 2018\Max Creation Graph\Compounds\GetMaterialIDByRayTracePolygon.maxcompound",@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\SceneNode_Mesh_in_World_Space.maxcompound",@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\Group_Indices_by_Value.maxcompound",@"C:\Users\josep\Autodesk\3ds Max 2018\Max Creation Graph\Compounds\GetMaterialByRayTrace.maxcompound",@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\Array_Maximum.maxcompound",@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\Index_of_Maximum.maxcompound",@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\Index_of_Max_Item.maxcompound")
+		pluginGraphDependencies = #(@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\Mesh_Polygons.maxcompound",@"C:\Users\josep\Autodesk\3ds Max 2018\Max Creation Graph\Compounds\GetMaterialIDByRayTracePolygon.maxcompound",@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\Push_Mesh.maxcompound",@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\SceneNode_Mesh_in_World_Space.maxcompound",@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\Group_Indices_by_Value.maxcompound",@"C:\Users\josep\Autodesk\3ds Max 2018\Max Creation Graph\Compounds\GetMaterialByRayTrace.maxcompound",@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\Array_Maximum.maxcompound",@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\Index_of_Maximum.maxcompound",@"C:\Program Files\Autodesk\3ds Max 2018\MaxCreationGraph\Compounds\Index_of_Max_Item.maxcompound")
 
 		-- value wrapper local initializations
 		local meshWrapperClass = dotNetClass "Autodesk.Max.MaxPlus.Mesh"
@@ -99,8 +100,9 @@ plugin simpleMeshMod CatchMaterialIDNearest
 		checkbox Static_Or_Dynamic "Static Or Dynamic" checked:False
 		pickbutton Hit_Mesh "Hit Mesh" autodisplay:true type:#node toolTip:"Hit Mesh" width:140
 		on Hit_Mesh rightclick do ( Hit_Mesh.object = undefined; )
+		spinner Push_HitMesh "Push HitMesh" range:[0, 10000, 1] type:#float
 		checkbox ReverseRay "ReverseRay" checked:False
-		spinner Ray_Length "Ray Length" range:[0, 10000, 1] type:#float
+		spinner Ray_Length "Ray Length" range:[0, 10000, 10] type:#float
 
 	)
 
@@ -133,7 +135,7 @@ plugin simpleMeshMod CatchMaterialIDNearest
 	(
 		if (tmHandler == undefined) then ( tmHandler = when transform owningNode changes do _dummy = not _dummy )
 		if (pluginInstance == undefined) then ( return undefined )
-		local args = dotnet_ValueToDotNetObject #(meshWrapper, Static_Or_Dynamic, Hit_MeshWrapper, modifierTransformWrapper, ReverseRay, Ray_Length) argsType
+		local args = dotnet_ValueToDotNetObject #(meshWrapper, Static_Or_Dynamic, Hit_MeshWrapper, Push_HitMesh, modifierTransformWrapper, ReverseRay, Ray_Length) argsType
 		pluginInstance_UpdateMesh (currentTime as integer) _meshWrapper args
 		ok
 	)
