@@ -27,6 +27,7 @@ plugin simpleMeshMod CatchMaterialIDNearest
 	parameters main rollout:params
 	(
 		hitMesh ui:hitMesh type:#node useNodeOsValidity:true useNodeTmValidity:true
+		RayLength ui:RayLength default:1 type:#float animatable:true
 		_dummy type:#boolean invisibleInTV:true -- this exists to enable easy invalidation of the object
 		pluginGraph type:#filename assettype:#MaxCreationGraph readOnly:true enumAsAsset:true 
 		pluginGraphDependencies type:#filenametab assettype:#MaxCreationGraph readOnly:true enumAsAsset:true tabSize:0 tabSizeVariable:true
@@ -45,7 +46,7 @@ plugin simpleMeshMod CatchMaterialIDNearest
 
 	fn initialize = 
 	(
-		pluginDefinitionFile = @"D:\Project\mcg\CatchMaterialIDNearest.maxtool"
+		pluginDefinitionFile = @"D:\Project\mcg\MCGRaytraceMatID\CatchMaterialIDNearest.maxtool"
 		local c = dotNetClass "Viper3dsMaxBridge.ModifierPluginInstance"
 		local cid = this.classId
 		local refMakerWrapperClass = dotnetclass "Autodesk.Max.MaxPlus.ReferenceMaker"
@@ -95,6 +96,7 @@ plugin simpleMeshMod CatchMaterialIDNearest
 	(
 		pickbutton hitMesh "hitMesh" autodisplay:true type:#node toolTip:"hitMesh" width:140
 		on hitMesh rightclick do ( hitMesh.object = undefined; )
+		spinner RayLength "RayLength" range:[0, 10000, 1] type:#float
 
 	)
 
@@ -127,7 +129,7 @@ plugin simpleMeshMod CatchMaterialIDNearest
 	(
 		if (tmHandler == undefined) then ( tmHandler = when transform owningNode changes do _dummy = not _dummy )
 		if (pluginInstance == undefined) then ( return undefined )
-		local args = dotnet_ValueToDotNetObject #(meshWrapper, hitMeshWrapper, modifierTransformWrapper) argsType
+		local args = dotnet_ValueToDotNetObject #(meshWrapper, hitMeshWrapper, modifierTransformWrapper, RayLength) argsType
 		pluginInstance_UpdateMesh (currentTime as integer) _meshWrapper args
 		ok
 	)
